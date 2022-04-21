@@ -1,0 +1,52 @@
+<header class="blog-header">
+   <h1 class="xl-txt"><a href="/">Mon Blog</a></h1>
+   <nav>
+      <ul>
+         <li><a href="/">home</a></li>
+         <li><a href="/">admin</a></li>
+      </ul>
+   </nav>
+</header>
+
+<main>
+   <section class="home-list">
+      
+      <h2>Bienvenue sur mon blog</h2>
+      <article>
+         <h2><a href="/comment">
+               <%=data[0].Contents.substring(4,15)%>
+            </a></h2>
+         <p>
+            <%= data[0].Contents%>
+         </p>
+         <p>
+            <%= data[0].CreationTimestamp. toLocaleDateString("fr")%>
+         </p>
+         <p>
+            <%= data[0].NickName %>
+         </p>
+      </article>
+
+
+      <article>
+         <h2><a href="/comment">
+               <%=data[3].Contents.substring(4,15)%>
+            </a></h2>
+         <p>
+            <%= data[3].Contents%>
+         </p>
+         <p>
+            <%= data[3].CreationTimestamp.toLocaleDateString("fr")%>
+         </p>
+         <p>
+            <%= data[3].NickName %>
+         </p>
+      </article>
+
+   </section>
+</main>
+
+
+<footer class="blog-footer">
+   <p>Le blog des élèves de la 3WA Academy</p>
+</footer>
