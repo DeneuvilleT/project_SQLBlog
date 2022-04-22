@@ -1,0 +1,23 @@
+
+<main>
+   <section class="home-list">
+      <% data.forEach((comment)=>{ %>
+
+         <article>
+            <h2><a href="/detail">
+                  <%= comment.Contents.substring(4,15)%>
+               </a></h2>
+            <p>
+               <%= comment.Contents%>
+            </p>
+            <p>
+               <%= comment.CreationTimestamp.toLocaleDateString("fr")%>
+            </p>
+            <p>
+               <%= comment.NickName %>
+            </p>
+         </article>
+
+         <% }) %>
+   </section>
+</main>

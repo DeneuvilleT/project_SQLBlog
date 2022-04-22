@@ -1,13 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
    <link rel="stylesheet" href="./style.css">
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+      integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+      crossorigin="anonymous" referrerpolicy="no-referrer" />
    <title>Mon Blog</title>
 </head>
+
 <body>
+
+   <header class="blog-header">
+      <h1 class="xl-txt"><a href="/"><i class="fa-solid fa-microphone"></i>&nbsp;Mon Blog</a></h1>
+      <nav>
+         <ul>
+            <li><a href="/"><i class="fa-solid fa-house"></i>home</a></li>
+            <li><a href="/"><i class="fa-solid fa-gear"></i>admin</a></li>
+         </ul>
+      </nav>
+   </header>
+
    <%- include(template) -%>
+
+   <footer class="blog-footer">
+      <p>Le blog des élèves de la 3WA Academy</p>
+   </footer>
+
 </body>
+
 </html>

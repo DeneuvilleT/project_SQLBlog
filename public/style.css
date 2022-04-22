@@ -40,7 +40,7 @@ body {
 }
 
 .blog-header h1 {
-	
+	padding-top: 100px;
 	text-align: center;
 }
 
@@ -54,10 +54,11 @@ body {
 	padding: 50px;
 }
 
-.blog-header nav a {
+.blog-header nav li a i,a:visited{
 	color: white;
 	margin: 10px;
 }
+
 
 /****** MAIN  *******/
 main {

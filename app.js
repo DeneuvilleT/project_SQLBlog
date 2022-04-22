@@ -25,7 +25,7 @@ const pool = mysql.createPool({
 console.log(`Connection à ${pool.config.connectionConfig.database}`);
 
 app.get('/', (req, res) => {
-   pool.query('SELECT * FROM comment', function (error, results, fields) {
+   pool.query('SELECT NickName, Contents, CreationTimestamp FROM comment', function (error, results, fields) {
       if (error) {
          throw Error;
       } else {
@@ -36,12 +36,12 @@ app.get('/', (req, res) => {
 });
 
 
-app.get('/comment', (req, res) => {
+app.get('/commentPage', (req, res) => {
    pool.query('SELECT * FROM comment', function (error, results, fields) {
       if (error) {
          throw Error;
       } else {
-         res.render("layout", { template: "comment", data: results})
+         res.render("layout", { template: "commentPage", data: results})
       }
    });
 });
