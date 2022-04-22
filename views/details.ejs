@@ -1,0 +1,59 @@
+<main>
+   <a href="/">accueil</a>
+
+   <section class="home-list">
+      <article>
+         <h2><a href="/">
+               <%=comment[0].Title%>
+            </a></h2>
+         <p>
+            <%=comment[0].Contents%>
+         </p>
+         <p>
+            le : <%=comment[0].CreationTimestamp.toLocaleDateString("fr")%>
+         </p>
+         <p>
+            par : <%= data[0].FirstName%>
+               <%= data[0].LastName%>
+         </p>
+      </article>
+   </section>
+
+   <hr>
+
+   <section class="comment-article">
+      <% data.forEach((elem)=>{ %>
+         <article>
+            <h3>
+               <%= elem.NickName %>
+            </h3>
+            <p class="date-comment">
+               le <%= elem.CreationTimestamp.toLocaleDateString("fr")%>
+            </p>
+            <p>
+               <%= elem.Contents%>
+            </p>
+            <hr class="divider">
+         </article>
+         <% }) %>
+   </section>
+
+   <hr>
+
+   <section>
+
+      <form action="/details" method="post">
+
+         <label for="nickname">Alias :</label>
+         <input type="text" name="nickname">
+
+         <label for="contents">Votre message :</label>
+         <input type="text" name="contents">
+
+         <input type="submit" value="Envoyer le com'!">
+
+      </form>
+
+   </section>
+
+</main>

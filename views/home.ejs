@@ -1,39 +1,22 @@
-
 <main>
    <section class="home-list">
-      
-      <h2>Bienvenue sur mon blog</h2>
-      <article>
-         <h2><a href="/commentPage">
-               <%=data[0].Contents.substring(4,15)%>
+      <h2>Bienvenue sur mon blog !</h2>
+      <% data.forEach((elem)=>{ %>
+         <article>
+         <h2><a href="/details/<%=elem.Id%>">
+               <%=elem.Title%>
             </a></h2>
          <p>
-            <%= data[0].Contents%>
+            <%= elem.Contents.substring(0,40)%> ...
          </p>
          <p>
-            <%= data[0].CreationTimestamp. toLocaleDateString("fr")%>
+            <%= elem.CreationTimestamp.toLocaleDateString("fr")%>
          </p>
          <p>
-            <%= data[0].NickName %>
+            <%=elem.FirstName%> <%=elem.LastName%>
          </p>
       </article>
-
-
-      <article>
-         <h2><a href="/commentPage">
-               <%=data[3].Contents.substring(4,15)%>
-            </a></h2>
-         <p>
-            <%= data[3].Contents%>
-         </p>
-         <p>
-            <%= data[3].CreationTimestamp.toLocaleDateString("fr")%>
-         </p>
-         <p>
-            <%= data[3].NickName %>
-         </p>
-      </article>
-
+      <%})%> 
+     
    </section>
 </main>
-

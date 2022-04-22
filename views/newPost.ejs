@@ -1,0 +1,33 @@
+<main>
+   <a href="/">accueil</a>
+
+   <section>
+      <h2>Ajouter un article</h2>
+      <form action="/newPost" method="post">
+      
+         <label for="title">Titre de l'article :</label>
+         <input type="text" name="title">
+      
+         <label for="contents">contenu de l'article :</label>
+         <textarea name="contents" cols="30" rows="10"></textarea>
+         
+         <!-- <select name="user" >
+            <% data.forEach((elem)=>{ %>
+               <option value="<%=elem.FirstName%>">
+                  <%=elem.LastName%>
+               </option>
+               <%});%>
+         </select>
+         
+         <select name="categoryName">
+            <% data.forEach((elem)=>{ %>
+               <option value="<%=elem.Id%>">
+                  <%=elem.Name%></option>
+           <%});%> 
+         </select> -->
+
+         <input type="submit" value="Envoyer le com'!">
+      
+      </form>
+   </section>
+</main>

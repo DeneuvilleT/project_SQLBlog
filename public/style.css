@@ -44,7 +44,7 @@ body {
 	text-align: center;
 }
 
-.blog-header h1 a {
+.blog-header h1 a{
 	color: white;
 	font-size: 1.5em;
 }
@@ -54,7 +54,7 @@ body {
 	padding: 50px;
 }
 
-.blog-header nav li a i,a:visited{
+.blog-header nav li a i,a:visited,a:link{
 	color: white;
 	margin: 10px;
 }
@@ -67,23 +67,26 @@ main {
 
 main p {
 	text-align: center;
+	padding: 3px;
 }
-
+main a{
+	color: #0cd6b4 !important;
+	text-align: left;
+}
 main h2 {
 	color: #9b9b9b;
 	text-align: center;
 }
 
-.back {
+main .back {
 	font-size: 1.8rem;
 	padding: 1%;
-	color: rgb(0, 70, 128);
+	color: rgb(59, 172, 224);
 	width: fit-content;
 	/* margin: 2% auto; */
 	outline: none;
 	box-shadow: 2px 2px 4px #333;
 	border-radius: 10px;
-	text-transform: uppercase;
 	text-decoration: none;
 	display: block;
 }
@@ -97,7 +100,7 @@ main h2 {
 }
 /********** FORM ******/
 
-main form {
+main section form {
 	width: 40%;
 	margin: auto;
 	text-align: center;
@@ -106,25 +109,25 @@ main form {
 	border-radius: 50px;
 }
 
-main form label {
+main section form label {
 	color: #9b9b9b;
 	text-decoration: underline;
 }
 
-main form input {
+main section form input {
 	display: block;
 	margin: 25px auto;
 	width: 70%;
 }
 
-main form textarea {
+main section form textarea {
 	display: block;
 	margin: 25px auto;
 	width: 70%;
 	height: 120px;
 }
 
-main form input[type="submit"] {
+main section form input[type="submit"] {
 	height: 40px;
 	width: 50%;
 	background-color: #0cd6b4;
@@ -132,7 +135,7 @@ main form input[type="submit"] {
 	border-radius: 10px;
 }
 
-main form select {
+main section form select {
 	display: block;
 	margin: 25px auto;
 	width: 70%;
@@ -202,53 +205,42 @@ hr {
 
 .comment-article p.date-comment {
 	font-size: 0.7em;
+	text-align: right;
 }
 
 .divider {
 	height: 1px;
 	width: 80px;
 	background-color: grey;
-	margin: auto;
+	margin: 20px auto;
 }
 
 /********** ADMIN ****/
-/* 
-#admin-panel h2 {
-	color: #333;
+ 
+table,th,td {
+	margin:50px auto;
+	border: solid #0cd6b4 2px ;
+	border-collapse: collapse ;
+	text-align: center;
 }
 
-#admin-panel {
-	padding: 0;
-	width: 100vw;
-	min-height: 50vh;
-	display: flex;
-	flex-direction: row;
+tr{
+	height: auto;
+	width: auto;
 }
 
-.main-ctn{
-	width: 30%;
-	background-color: #0cd6b4;
-	display: flex;
-	flex-direction: column;
-	
+th{
+	min-width: 200px;
+	height: 50px;
 }
 
-.main-ctn a {
-	padding: 2% 0 2% 5%;
-	margin-top: 3%;
-	text-decoration: none;
-	color: #333;
+
+td{
+	min-width: 200px;
+	height: 100px;
+	padding: 15px;
 }
 
-.main-ctn a.active {
-	background-color: #c2ebe4;
-}
-
-.secondary-ctn{
-	width: 70%;
-	background-color: #c2ebe4;
-	padding: 2%;
-} */
 /********** FOOTER *************/
 
 .blog-footer {
@@ -256,3 +248,37 @@ hr {
 	text-align: center;
 	padding: 25px;
 }
+
+	/* 
+	#admin-panel {
+		padding: 0;
+		width: 100vw;
+		min-height: 50vh;
+		display: flex;
+		flex-direction: row;
+	}
+	
+	.main-ctn{
+		width: 30%;
+		background-color: #0cd6b4;
+		display: flex;
+		flex-direction: column;
+		
+	}
+	
+	.main-ctn a {
+		padding: 2% 0 2% 5%;
+		margin-top: 3%;
+		text-decoration: none;
+		color: #333;
+	}
+	
+	.main-ctn a.active {
+		background-color: #c2ebe4;
+	}
+	
+	.secondary-ctn{
+		width: 70%;
+		background-color: #c2ebe4;
+		padding: 2%;
+	} */
