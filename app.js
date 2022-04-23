@@ -48,17 +48,17 @@ app.get('/newPost', (req, res) => {
          throw Error;
       } else {
          res.render("layout", { template: "newPost", data: results })
-         console.log(results)
+         // console.log(results)
       }
    });
    app.post('/newPost', (req, res) => {
-      pool.query("INSERT INTO post (Id, Title, Contents, CreationTimestamp, Author_Id, Category_Id) VALUES(NULL, ?, ?, NOW(), 1, 1)",
+      pool.query("INSERT INTO post (Id, Title, Contents, CreationTimestamp, Author_Id, Category_Id) VALUES(NULL, ?, ?, NOW(), 2, 1)",
          [req.body.title, req.body.contents, req.body.user], (error, results) => {
             if (error) {
                throw Error;
             } else {
                res.redirect('/newPost');
-               console.log(results);
+               // console.log(results);
             }
          });
    });
@@ -104,14 +104,16 @@ app.get('/details/:id', (req, res) => {
       JOIN comment JOIN author 
       ON post.Id = comment.Post_Id 
       WHERE author.Id = 1 AND Post_Id = ?`, [id], (error, results) => {
-         res.render("layout", { template: "details", comment: commentOne, data: results });
+         res.render("layout", { template: "details", comment: commentOne, data:results });
+         console.log(commentOne,id); 
       });
    });
+   
 
    app.post('/details', (req, res) => {
       pool.query(`
       INSERT INTO comment (NickName, Contents,CreationTimestamp, Post_Id)
-      VALUES (?,?,CURDATE(),?)`, [req.body.nickname, req.body.contents, id], (err, result) => {
+      VALUES (?,?,NOW(),?)`, [req.body.nickname, req.body.contents, id], (err, result) => {
          if (err) {
             console.log(err);
          };

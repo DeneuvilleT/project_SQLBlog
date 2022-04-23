@@ -13,8 +13,8 @@
             le : <%=comment[0].CreationTimestamp.toLocaleDateString("fr")%>
          </p>
          <p>
-            par : <%= data[0].FirstName%>
-               <%= data[0].LastName%>
+            par : <%= data.length && data[0].FirstName%>
+               <%= data.length && data[0].LastName%>
          </p>
       </article>
    </section>
@@ -22,7 +22,7 @@
    <hr>
 
    <section class="comment-article">
-      <% data.forEach((elem)=>{ %>
+      <% data.length && data.forEach((elem)=>{ %>
          <article>
             <h3>
                <%= elem.NickName %>
