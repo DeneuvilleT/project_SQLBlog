@@ -2,6 +2,7 @@
    <a href="/">accueil</a>
 
    <section>
+
       <h2>Ajouter un article</h2>
       <form action="/newPost" method="post">
       
@@ -11,23 +12,28 @@
          <label for="contents">contenu de l'article :</label>
          <textarea name="contents" cols="30" rows="10"></textarea>
          
-         <!-- <select name="user" >
-            <% data.forEach((elem)=>{ %>
-               <option value="<%=elem.FirstName%>">
-                  <%=elem.LastName%>
-               </option>
-               <%});%>
+         <select name="user" >
+            <% if (author.length !== 0){ %>
+            <% author.forEach((elem)=>{ %>
+               <option value="<%= elem.Id %>">
+               <%= elem.FirstName %> <%= elem.LastName %></option>
+            <% }) %>
+            <% } %>
          </select>
          
-         <select name="categoryName">
-            <% data.forEach((elem)=>{ %>
-               <option value="<%=elem.Id%>">
-                  <%=elem.Name%></option>
-           <%});%> 
-         </select> -->
+         <select name="category">
+            <% if (category.length !== 0){ %>
+            <% category.forEach((elem)=>{ %>
+               <option value="<%= elem.Id %>">
+                  <%= elem.Name %></option>
+            <% }) %> 
+            <% } %>
+         </select>
 
          <input type="submit" value="Envoyer le com'!">
       
       </form>
+
    </section>
+
 </main>

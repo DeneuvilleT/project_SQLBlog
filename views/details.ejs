@@ -2,40 +2,40 @@
    <a href="/">accueil</a>
 
    <section class="home-list">
+
       <article>
          <h2><a href="/">
-               <%=comment[0].Title%>
+               <%= headerData[0].Title %>
             </a></h2>
+         <p><%= headerData[0].Contents %></p>
          <p>
-            <%=comment[0].Contents%>
+            le : <%= headerData[0].CreationTimestamp.toLocaleDateString("fr") %>
          </p>
          <p>
-            le : <%=comment[0].CreationTimestamp.toLocaleDateString("fr")%>
-         </p>
-         <p>
-            par : <%= data.length && data[0].FirstName%>
-               <%= data.length && data[0].LastName%>
+            <% if (comments.length !== 0) { %>
+         par : <%= comments[0].FirstName %>
+               <%= comments[0].LastName %>
+            <% } %>
          </p>
       </article>
+
    </section>
 
    <hr>
 
    <section class="comment-article">
-      <% data.length && data.forEach((elem)=>{ %>
+      <% if (comments.length !== 0){ %>
+      <% comments.forEach((elem)=> { %>
          <article>
-            <h3>
-               <%= elem.NickName %>
-            </h3>
+            <h3><%= elem.NickName %></h3>
             <p class="date-comment">
                le <%= elem.CreationTimestamp.toLocaleDateString("fr")%>
             </p>
-            <p>
-               <%= elem.Contents%>
-            </p>
+            <p><%= elem.Contents%></p>
             <hr class="divider">
          </article>
-         <% }) %>
+      <% }) %>
+      <% } %>
    </section>
 
    <hr>
@@ -43,17 +43,16 @@
    <section>
 
       <form action="/details" method="post">
-
          <label for="nickname">Alias :</label>
          <input type="text" name="nickname">
 
          <label for="contents">Votre message :</label>
          <input type="text" name="contents">
 
-         <input type="submit" value="Envoyer le com'!">
+         <input class="hide" type="text" value="<%= idData %>" name="postId">
 
+         <input type="submit" value="Envoyer le com'!">
       </form>
 
    </section>
-
 </main>

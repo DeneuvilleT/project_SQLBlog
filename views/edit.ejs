@@ -1,0 +1,23 @@
+<main>
+   <a href="/admin">admin panel</a>
+
+   <section>
+
+      <h2>Editer un article</h2>
+      <form action="/edit" method="post">
+
+         <label for="title">Titre de l'article :</label>
+         <input type="text" name="title" value="<%= data[0].Title %>"> 
+
+         <label for="contents">contenu de l'article :</label>
+         <textarea name="contents" cols="30" rows="10"><%= data[0].Contents %></textarea>
+
+         <input class="hide" type="text" value="<%= data[0].Id %>" name="postId">
+
+         <input type="submit" value="Mettre à jour le com'!">
+
+      </form>
+
+   </section>
+
+</main>

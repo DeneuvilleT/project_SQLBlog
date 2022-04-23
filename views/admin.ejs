@@ -1,11 +1,14 @@
 <main>
-   <a href="/newPost">Ajouter un article</a>
 
+   <a href="/newPost">Ajouter un article</a>
    <section>
+
       <article>
+
          <h2>Admin</h2>
 
          <table>
+
             <thead>
                <th>Titre</th>
                <th>Article</th>
@@ -13,32 +16,37 @@
                <th>Categorie</th>
                <th></th>
             </thead>
+
             <tbody>
+               <% if (data.length !== 0){ %>
                <% data.forEach((elem)=>{ %>
                   <tr>
                      <td>
-                        <a href="/newPost/<%=elem.Id%>">
-                           <%=elem.Title%>
-                        </a>
+                        <a href="/newPost/<%= elem.Id %>"><%= elem.Title %></a>
                      </td>
                      <td>
-                        <%=elem.Contents%>
+                        <%= elem.Contents %>
                      </td>
                      <td>
-                        <%=elem.FirstName%>
-                           <%=elem.LastName%>
+                        <%= elem.FirstName %>
+                        <%= elem.LastName %>
                      </td>
                      <td>
-                        <%=elem.Name%>
+                        <%= elem.Name %>
                      </td>
                      <td>
-                        <a href="/delete/<%=elem.Id%>"><i class="fa-solid fa-square-xmark remove"></i></a>
-                        <a href="/admin/<%=elem.Id%>"><i class="fa-solid fa-pen-to-square edit"></i></a>
+                        <a href="/delete/<%= elem.Id %>"><i class="fa-solid fa-square-xmark remove"></i></a>
+                        <a href="/edit/<%= elem.Id %>"><i class="fa-solid fa-pen-to-square edit"></i></a>
                      </td>
                   </tr>
-                  <% }) %>
+               <% }) %>
+               <% } %>
             </tbody>
+
          </table>
+
       </article>
+
    </section>
+
 </main>

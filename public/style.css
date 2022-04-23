@@ -142,6 +142,10 @@ main section form select {
 	text-align: center;
 }
 
+main section form .hide{
+	display: none;
+}
+
 /********** HOME ****/
 
 .home-list article {
