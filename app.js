@@ -48,7 +48,11 @@ app.get('/newPost', (req, res) => {
             throw Error;
          } else {
             pool.query("SELECT * FROM category", (error, resultsCategory) => {
-               res.render("layout", { template: "newPost", author: resultsAuthor, category: resultsCategory })
+               if (error) {
+                  throw Error;
+               } else {
+                  res.render("layout", { template: "newPost", author: resultsAuthor, category: resultsCategory });
+               }
             });
          }
       });
@@ -78,7 +82,11 @@ app.get('/admin', (req, res) => {
    FROM post JOIN author ON post.Author_Id = author.Id
    INNER JOIN category ON category.Id = post.Category_Id`,
       (error, results) => {
-         res.render("layout", { template: "admin", data: results });
+         if (error) {
+            throw Error;
+         } else {
+            res.render("layout", { template: "admin", data: results });
+         }
       });
 });
 
@@ -86,7 +94,11 @@ app.get('/admin', (req, res) => {
 app.get('/delete/:id', (req, res) => {
    let id = req.params.id;
    pool.query('DELETE FROM post WHERE post.Id = ?', [id], (error, results) => {
-      res.redirect('/admin');
+      if (error) {
+         throw Error;
+      } else {
+         res.redirect('/admin');
+      }
    });
 });
 
@@ -96,17 +108,23 @@ app.get('/delete/:id', (req, res) => {
 // Edit Page ************************************************************************************************ 
 app.get('/edit/:id', (req, res) => {
    let id = req.params.id;
-   pool.query('SELECT * FROM post WHERE post.Id = ?', [id], (error, results) => {
-      res.render("layout", { template: "edit", data: results });
+   pool.query('SELECT * FROM post WHERE post.Id = ?', [id], (error1, results) => {
+      if (error1) {
+         throw Error;
+      } else {
+         res.render("layout", { template: "edit", data: results });
+      }
    });
 
    app.post('/edit', (req, res) => {
       pool.query(`
-      UPDATE post SET Title = ? , Contents = ? WHERE post.Id = ?`, [req.body.title, req.body.contents, req.body.postId], (err, result) => {
-         if (err) {
-            console.log(err);
-         };
-         res.redirect('/admin');
+      UPDATE post SET Title = ? , Contents = ? WHERE post.Id = ?`,
+      [req.body.title, req.body.contents, req.body.postId], (error2, result) => {
+         if (error2) {
+            throw Error;
+         } else {
+            res.redirect('/admin');
+         }
       });
    });
 });
@@ -117,25 +135,33 @@ app.get('/edit/:id', (req, res) => {
 // Details Page ************************************************************************************************ 
 app.get('/details/:id', (req, res) => {
    let postId = req.params.id;
-   pool.query('SELECT * FROM post WHERE Id = ?', [postId], (error, header) => {
-
-      pool.query(`
+   pool.query('SELECT * FROM post WHERE Id = ?', [postId], (error1, header) => {
+      if (error1) {
+         throw Error;
+      } else {
+         pool.query(`
       SELECT * FROM post 
       JOIN comment JOIN author 
       ON post.Id = comment.Post_Id 
-      WHERE author.Id = 1 AND Post_Id = ?`, [postId], (error, results) => {
-         res.render("layout", { template: "details", headerData: header, comments: results, idData: postId });
-      });
+      WHERE author.Id = 1 AND Post_Id = ?`, [postId], (error2, results) => {
+            if (error2) {
+               throw Error;
+            } else {
+               res.render("layout", { template: "details", headerData: header, comments: results, idData: postId });
+            }
+         });
+      };
    });
 
    app.post('/details', (req, res) => {
       pool.query(`
       INSERT INTO comment (NickName, Contents, CreationTimestamp, Post_Id)
-      VALUES (?,?,NOW(),?)`, [req.body.nickname, req.body.contents, req.body.postId], (err, result) => {
-         if (err) {
-            console.log(err);
-         };
-         res.redirect(`/details/${req.body.postId}`);
+      VALUES (?,?,NOW(),?)`, [req.body.nickname, req.body.contents, req.body.postId], (error3, result) => {
+         if (error3) {
+            throw Error;
+         } else {
+            res.redirect(`/details/${req.body.postId}`);
+         }
       });
    });
 });
@@ -144,5 +170,5 @@ app.get('/details/:id', (req, res) => {
 
 
 app.listen(PORT, () => {
-   console.log(`Listening a http://localhost:${PORT}`)
-})
+   console.log(`Listening a http://localhost:${PORT}`);
+});

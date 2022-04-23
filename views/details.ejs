@@ -1,6 +1,6 @@
 <main>
+   
    <a href="/">accueil</a>
-
    <section class="home-list">
 
       <article>
@@ -12,10 +12,10 @@
             le : <%= headerData[0].CreationTimestamp.toLocaleDateString("fr") %>
          </p>
          <p>
-            <% if (comments.length !== 0) { %>
-         par : <%= comments[0].FirstName %>
-               <%= comments[0].LastName %>
-            <% } %>
+               <% if (comments.length !== 0) { %>
+            par : <%= comments[0].FirstName %>
+                  <%= comments[0].LastName %>
+               <% } %>
          </p>
       </article>
 
@@ -24,6 +24,7 @@
    <hr>
 
    <section class="comment-article">
+
       <% if (comments.length !== 0){ %>
       <% comments.forEach((elem)=> { %>
          <article>
@@ -36,6 +37,7 @@
          </article>
       <% }) %>
       <% } %>
+
    </section>
 
    <hr>
@@ -55,4 +57,5 @@
       </form>
 
    </section>
+   
 </main>
