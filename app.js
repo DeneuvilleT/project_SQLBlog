@@ -43,12 +43,12 @@ app.get('/', (req, res) => {
 // Add Page ************************************************************************************************ 
 app.get('/newPost', (req, res) => {
    pool.query("SELECT * FROM author",
-      (error, resultsAuthor) => {
-         if (error) {
+      (error1, resultsAuthor) => {
+         if (error1) {
             throw Error;
          } else {
-            pool.query("SELECT * FROM category", (error, resultsCategory) => {
-               if (error) {
+            pool.query("SELECT * FROM category", (error2, resultsCategory) => {
+               if (error2) {
                   throw Error;
                } else {
                   res.render("layout", { template: "newPost", author: resultsAuthor, category: resultsCategory });
@@ -67,7 +67,7 @@ app.post('/newPost', (req, res) => {
          if (error) {
             throw Error;
          } else {
-            res.redirect('/newPost');
+            res.redirect('/admin');
          };
       });
 });
@@ -103,23 +103,36 @@ app.get('/delete/:id', (req, res) => {
 });
 
 
-
-
 // Edit Page ************************************************************************************************ 
 app.get('/edit/:id', (req, res) => {
    let id = req.params.id;
-   pool.query('SELECT * FROM post WHERE post.Id = ?', [id], (error1, results) => {
-      if (error1) {
-         throw Error;
-      } else {
-         res.render("layout", { template: "edit", data: results });
-      }
-   });
+
+   pool.query("SELECT * FROM author",
+      (error1, resultsAuthor) => {
+         if (error1) {
+            throw Error;
+         } else {
+            pool.query("SELECT * FROM category", (error2, resultsCategory) => {
+               if (error2) {
+                  throw Error;
+               } else {
+                  pool.query('SELECT * FROM post WHERE post.Id = ?', [id], (error3, results) => {
+                     if (error3) {
+                        throw Error;
+                     } else {
+                        res.render("layout", { template: "edit", data: results, author: resultsAuthor, category: resultsCategory });
+                     }
+                  });
+               }
+            });
+         }
+      });
+   
 
    app.post('/edit', (req, res) => {
       pool.query(`
-      UPDATE post SET Title = ? , Contents = ? WHERE post.Id = ?`,
-      [req.body.title, req.body.contents, req.body.postId], (error2, result) => {
+      UPDATE post SET Title = ? , Contents = ?,  Author_Id = ?, Category_Id = ? WHERE post.Id = ?`,
+         [req.body.title, req.body.contents, req.body.user, req.body.category, req.body.postId, ], (error2, result) => {
          if (error2) {
             throw Error;
          } else {

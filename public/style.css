@@ -146,6 +146,12 @@ main section form .hide{
 	display: none;
 }
 
+main section textarea{
+	width: 35%;
+	min-height: 150px;
+	resize: none;
+}
+
 /********** HOME ****/
 
 .home-list article {
