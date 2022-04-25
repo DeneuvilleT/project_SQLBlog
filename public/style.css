@@ -44,7 +44,7 @@ body {
 	text-align: center;
 }
 
-.blog-header h1 a{
+.blog-header h1 a {
 	color: white;
 	font-size: 1.5em;
 }
@@ -54,7 +54,9 @@ body {
 	padding: 50px;
 }
 
-.blog-header nav li a i,a:visited,a:link{
+.blog-header nav li a i,
+a:visited,
+a:link {
 	color: white;
 	margin: 10px;
 }
@@ -69,10 +71,12 @@ main p {
 	text-align: center;
 	padding: 3px;
 }
-main a{
+
+main a {
 	color: #0cd6b4 !important;
 	text-align: left;
 }
+
 main h2 {
 	color: #9b9b9b;
 	text-align: center;
@@ -98,10 +102,13 @@ main .back {
 .remove {
 	color: red;
 }
+
 /********** FORM ******/
+main section h2{
+	margin-bottom: 30px;
+}
 
 main section form {
-	width: 40%;
 	margin: auto;
 	text-align: center;
 	border: 3px solid #9b9b9b;
@@ -111,7 +118,6 @@ main section form {
 
 main section form label {
 	color: #9b9b9b;
-	text-decoration: underline;
 }
 
 main section form input {
@@ -142,11 +148,11 @@ main section form select {
 	text-align: center;
 }
 
-main section form .hide{
+main section form .hide {
 	display: none;
 }
 
-main section textarea{
+main section textarea {
 	width: 35%;
 	min-height: 150px;
 	resize: none;
@@ -194,6 +200,7 @@ hr {
 	width: 30%;
 	margin: auto;
 }
+
 .comment-article article {
 	margin: 20px;
 }
@@ -202,6 +209,7 @@ hr {
 	display: flex;
 	justify-content: space-between;
 }
+
 .comment-article h3 {
 	color: #32d37b;
 	font-size: 1.2em;
@@ -226,26 +234,28 @@ hr {
 }
 
 /********** ADMIN ****/
- 
-table,th,td {
-	margin:50px auto;
-	border: solid #0cd6b4 2px ;
-	border-collapse: collapse ;
+
+table,
+th,
+td {
+	margin: 50px auto;
+	border: solid #0cd6b4 2px;
+	border-collapse: collapse;
 	text-align: center;
 }
 
-tr{
+tr {
 	height: auto;
 	width: auto;
 }
 
-th{
+th {
 	min-width: 200px;
 	height: 50px;
 }
 
 
-td{
+td {
 	min-width: 200px;
 	height: 100px;
 	padding: 15px;
@@ -259,36 +269,53 @@ td{
 	padding: 25px;
 }
 
-	/* 
-	#admin-panel {
-		padding: 0;
-		width: 100vw;
-		min-height: 50vh;
-		display: flex;
-		flex-direction: row;
-	}
-	
-	.main-ctn{
-		width: 30%;
-		background-color: #0cd6b4;
-		display: flex;
-		flex-direction: column;
-		
-	}
-	
-	.main-ctn a {
-		padding: 2% 0 2% 5%;
-		margin-top: 3%;
-		text-decoration: none;
-		color: #333;
-	}
-	
-	.main-ctn a.active {
-		background-color: #c2ebe4;
-	}
-	
-	.secondary-ctn{
-		width: 70%;
-		background-color: #c2ebe4;
-		padding: 2%;
-	} */
+main section{
+	display: flex;
+	margin: auto;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+}
+
+#admin-panel {
+	min-height: 50vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 70%;
+}
+
+
+#register {
+	min-height: 50vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 70%;
+}
+
+.main-ctn {
+	width: 30%;
+	background-color: #0cd6b4;
+	display: flex;
+	flex-direction: column;
+
+}
+
+.main-ctn a {
+	padding: 2% 0 2% 5%;
+	margin-top: 3%;
+	text-decoration: none;
+	color: #333;
+}
+
+.main-ctn a.active {
+	background-color: #c2ebe4;
+}
+
+.secondary-ctn {
+	width: 70%;
+	background-color: #c2ebe4;
+	padding: 2%;
+}

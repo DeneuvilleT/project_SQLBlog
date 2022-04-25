@@ -1,0 +1,26 @@
+<main>
+   <section id="admin-panel">
+      <article>
+         <h2>Veuillez vous identifier</h2>
+
+      <form action="/login" method="post">
+         
+         <label for="FirstName">Identifiant :</label>
+         <input type="text" name="FirstName">
+
+         <label for="Password">Mot de passe :</label>
+         <input type="password" name="Password">
+
+         <% if (wrong) { %>
+            <span class="remove">Identifiant(s) incorrect(s)</span>
+         <% } %> 
+
+         <a href="/register">Nouvel utilisateur ?</a>
+
+         <input type="submit" value="Connexion">
+
+      </form>
+
+      </article>
+   </section>
+</main>
