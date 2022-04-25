@@ -32,7 +32,7 @@ const pool = mysql.createPool({
 // Home Page ************************************************************************************************ 
 app.get('/', (req, res) => {
    pool.query(`
-   SELECT post.Id,Title,Contents,CreationTimestamp,FirstName, LastName 
+   SELECT post.Id, Title, Contents, CreationTimestamp, FirstName, LastName 
    FROM post JOIN author ON post.Author_Id = author.Id`, (error, results) => {
       if (error) {
          throw Error;
@@ -83,7 +83,7 @@ app.post('/newPost', (req, res) => {
 // Admin Page ************************************************************************************************ 
 app.get('/admin', (req, res) => {
    pool.query(`
-   SELECT Name,post.Id,Title,Contents,CreationTimestamp,FirstName, LastName, Category_Id 
+   SELECT Name, post.Id, Title, Contents, CreationTimestamp, FirstName, LastName, Category_Id 
    FROM post JOIN author ON post.Author_Id = author.Id
    INNER JOIN category ON category.Id = post.Category_Id`,
       (error, results) => {
