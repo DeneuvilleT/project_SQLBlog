@@ -21,12 +21,12 @@ app.use(express.urlencoded({ extended: true }));
 
 
 const pool = mysql.createPool({
+   connectionLimit: 10000,
    host: HOST_DB,
    database: DATABASE_NAME,
    user: USERNAME_DB,
    password: PASSWORD_DB,
 });
-console.log(`connected to ${pool.config.connectionConfig.database}`);
 
 
 // Home Page ************************************************************************************************ 
