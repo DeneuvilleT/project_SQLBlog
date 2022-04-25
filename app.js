@@ -2,11 +2,15 @@ import { fileURLToPath } from "url";
 import path from "path";
 import express from 'express';
 import mysql from 'mysql';
+import 'dotenv/config';
 
 const app = express();
-const PORT = 9000;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+
+const PORT = process.env.PORT || process.env.SERVER_LOCAL_PORT;
+const { HOST_DB, DATABASE_NAME, USERNAME_DB, PASSWORD_DB } = process.env;
 
 
 app.set('views', './views');
@@ -17,11 +21,12 @@ app.use(express.urlencoded({ extended: true }));
 
 
 const pool = mysql.createPool({
-   host: "localhost",
-   database: "blog",
-   user: "root",
-   password: "",
+   host: HOST_DB,
+   database: DATABASE_NAME,
+   user: USERNAME_DB,
+   password: PASSWORD_DB,
 });
+console.log(`connected to ${pool.config.connectionConfig.database}`);
 
 
 // Home Page ************************************************************************************************ 
@@ -127,18 +132,18 @@ app.get('/edit/:id', (req, res) => {
             });
          }
       });
-   
+
 
    app.post('/edit', (req, res) => {
       pool.query(`
       UPDATE post SET Title = ? , Contents = ?,  Author_Id = ?, Category_Id = ? WHERE post.Id = ?`,
-         [req.body.title, req.body.contents, req.body.user, req.body.category, req.body.postId, ], (error2, result) => {
-         if (error2) {
-            throw Error;
-         } else {
-            res.redirect('/admin');
-         }
-      });
+         [req.body.title, req.body.contents, req.body.user, req.body.category, req.body.postId,], (error2, result) => {
+            if (error2) {
+               throw Error;
+            } else {
+               res.redirect('/admin');
+            }
+         });
    });
 });
 
