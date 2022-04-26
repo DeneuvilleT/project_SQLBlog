@@ -41,7 +41,6 @@ const adminPath = ["/admin", "/newPost", "/edit", "/delete"];
 app.use((req, res, next) => {
 
    const pathname = parseurl(req).pathname;
-   console.log(pathname);
    res.locals.session = req.session;
 
    if (!req.session.user) {
