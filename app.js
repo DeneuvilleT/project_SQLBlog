@@ -9,7 +9,6 @@ import 'dotenv/config';
 
 
 const saltrounds = 10;
-
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -201,16 +200,31 @@ app.get('/admin', (req, res) => {
 
    SELECT Name, post.Id, Title, Contents, CreationTimestamp, FirstName, LastName, Category_Id 
    FROM post JOIN author ON post.Author_Id = author.Id
-   INNER JOIN category ON category.Id = post.Category_Id`,
+   INNER JOIN category ON category.Id = post.Category_Id
+   `,
 
       (error, results) => {
          if (error) {
             throw Error;
          } else {
-            res.render("layout", { template: "admin", data: results });
+            pool.query(`SELECT * FROM user`, (error1, result) => {
+                  
+               res.render("layout", { template: "admin", data: results, admin: result});
+            })
          }
       });
 });
+
+app.post('/change', (req, res) => {
+   pool.query(`UPDATE user SET Role = ? WHERE user.Id= ? `, [req.body.Role,req.body.userId], (error, result) => {
+      if (error) {
+         throw Error;
+      } else {
+         console.log(req.body)
+         res.redirect('/admin');
+      }
+   })
+})
 
 // User ************************************************************************************************ 
 app.get('/login', (req, res) => {
@@ -220,7 +234,7 @@ app.get('/login', (req, res) => {
 
       const query = `SELECT * FROM user WHERE user.Email = ? `;
       pool.query(query, [req.body.Email], async (err, user) => {
-         if (err) {
+         if (err) { 
             res.render("layout",
             { template: "login", error: "Impossible d'acéder au serveur." });
          };
@@ -283,3 +297,7 @@ app.listen(PORT, () => {
    console.log(`Listening a http://localhost:${PORT}`);
 });
 
+
+
+
+   

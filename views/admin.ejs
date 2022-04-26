@@ -7,7 +7,8 @@
       <article>
 
 
-         <h2>Bienvenue <%= session.user.firstname %> </h2>
+         <h2>Bienvenue <%= session.user.firstname %>
+         </h2>
 
 
          <table>
@@ -16,30 +17,75 @@
                <th>Titre</th>
                <th>Article</th>
                <th>Auteur</th>
-               <th>Categorie</th>
-               <th></th>
+               <th colspan="2">Categorie</th>
             </thead>
 
             <tbody>
-               <% if (data.length !== 0){ %>
-               <% data.forEach((elem)=>{ %>
-                  <tr>
-                     <td>
-                        <a href="/details/<%= elem.Id %>"><%= elem.Title %></a>
-                     </td>
-                     <td><%= elem.Contents %></td>
-                     <td>
-                        <%= elem.FirstName %>
-                        <%= elem.LastName %>
-                     </td>
-                     <td><%= elem.Name %></td>
-                     <td>
-                        <a href="/delete/<%= elem.Id %>"><i class="fa-solid fa-square-xmark remove"></i></a>
-                        <a href="/edit/<%= elem.Id %>"><i class="fa-solid fa-pen-to-square edit"></i></a>
-                     </td>
-                  </tr>
-               <% }) %>
-               <% } %>
+               <% if (data.length !==0){ %>
+                  <% data.forEach((elem)=>{ %>
+                     <tr>
+                        <td>
+                           <a href="/details/<%= elem.Id %>">
+                              <%= elem.Title %>
+                           </a>
+                        </td>
+                        <td>
+                           <%= elem.Contents %>
+                        </td>
+                        <td>
+                           <%= elem.FirstName %>
+                              <%= elem.LastName %>
+                        </td>
+                        <td>
+                           <%= elem.Name %>
+                        </td>
+                        <td>
+                           <a href="/delete/<%= elem.Id %>"><i class="fa-solid fa-square-xmark remove"></i></a>
+                           <a href="/edit/<%= elem.Id %>"><i class="fa-solid fa-pen-to-square edit"></i></a>
+                        </td>
+                     </tr>
+                     <% }) %>
+                        <% } %>
+            </tbody>
+
+         </table>
+
+
+         <table>
+            <thead>
+               <th colspan="3">Gestion des droits d'utilisateurs</th>
+            </thead>
+
+            <tbody>
+
+               <tr>
+                  <% if (admin.length !== 0){ %>
+                     <% admin.forEach((elem)=>{ %>
+                        <td>
+                           <article>
+                              <p><strong><%= elem.LastName %></strong></p>
+                              <p><strong><%= elem.FirstName %></strong></p>
+                              <br>
+                              <p><em><%= elem.Email %></em></p>
+                              <br>
+                           </article>
+
+                           <form action="/change" method="post">
+                           
+                              <input class="hide" type="text" value="<%= elem.Id %>" name="userId">
+
+                              <select name="Role">
+                                    <option value="admin">admin</option>
+                                    <option value="user">user</option>
+                              </select>
+
+                              <input name="change" value="Appliquer" type="submit">
+                           </form>
+                        </td>
+                     <% }) %>
+                  <% } %>
+               </tr>
+
             </tbody>
 
          </table>
