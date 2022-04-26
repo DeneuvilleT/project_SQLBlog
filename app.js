@@ -4,6 +4,7 @@ import path from "path";
 import express from 'express';
 import mysql from 'mysql';
 import bcrypt from 'bcrypt';
+import parseurl from 'parseurl';
 import 'dotenv/config';
 
 
@@ -30,18 +31,29 @@ app.use(session({
    resave: false,
    saveUninitialized: false,
    cookie: {
-      maAge: 24 * 60 * 60 * 1000,
+      maxAge: 24 * 60 * 60 * 1000,
    }
 }));
 
+
+const adminPath = ["/admin", "/newPost", "/edit", "/delete"];
+
 app.use((req, res, next) => {
 
-   if (!req.session.user) {
-      req.session.user = null,
-         req.session.islogged = false;
+   const pathname = parseurl(req).pathname;
+   console.log(pathname);
+   res.locals.session = req.session;
 
+   if (!req.session.user) {
+      req.session.user = null;
+      req.session.isLogged = false;
    }
-   next();
+
+   if (adminPath.includes(pathname) && req.session.user?.role === "user" ) {
+      res.redirect('/');
+   } else {  
+      next();
+   }
 });
 
 const pool = mysql.createPool({
@@ -88,10 +100,11 @@ app.post('/newPost', (req, res) => {
    pool.query(`
    INSERT INTO post (Id, Title, Contents, CreationTimestamp, Author_Id, Category_Id) 
    VALUES(NULL, ?, ?, NOW(), ?, ?)`,
-      [req.body.title, req.body.contents, req.body.user, req.body.category], (error, resultsSend) => {
+      [req.body.title, req.body.contents, req.body.user, req.body.category], (error, results) => {
          if (error) {
             throw Error;
          } else {
+
             res.redirect('/admin');
          };
       });
@@ -149,7 +162,8 @@ app.get('/delete/:id', (req, res) => {
 
 // Details Page ************************************************************************************************ 
 app.get('/details/:id', (req, res) => {
-   let postId = req.params.id;
+   const postId = req.params.id;
+
    pool.query('SELECT * FROM post WHERE Id = ?', [postId], (error1, header) => {
       if (error1) {
          throw Error;
@@ -162,7 +176,7 @@ app.get('/details/:id', (req, res) => {
             if (error2) {
                throw Error;
             } else {
-               res.render("layout", { template: "details", headerData: header, comments: results, idData: postId });
+               res.render("layout", { template: "details", headerData: header, comments: results, idData: postId, wrong: req.session.islogged });
             }
          });
       };
@@ -175,6 +189,7 @@ app.get('/details/:id', (req, res) => {
          if (error3) {
             throw Error;
          } else {
+            console.log(result)
             res.redirect(`/details/${req.body.postId}`);
          }
       });
@@ -198,66 +213,69 @@ app.get('/admin', (req, res) => {
       });
 });
 
-
 // User ************************************************************************************************ 
 app.get('/login', (req, res) => {
 
-   let badPass = false;
+   res.render("layout", { template: "login", error: null });
+   app.post('/login', (req, res) => {
 
-   pool.query('SELECT FirstName, Password FROM user', (error, results) => {
+      const query = `SELECT * FROM user WHERE user.Email = ? `;
+      pool.query(query, [req.body.Email], async (err, user) => {
+         if (err) {
+            res.render("layout",
+            { template: "login", error: "Impossible d'acéder au serveur." });
+         };
 
-      res.render("layout", { template: "login", wrong : badPass });
-      app.post('/login', (req, res) => {
+         if (!user.length) {
+            res.render("layout",
+            { template: "login", error: "Utilisateur inccorect." });
+         } else {
 
-         pool.query(`
-         SELECT FirstName, Password
-         FROM user WHERE user.Password = ?
-         AND user.FirstName = ?`,
-         [req.body.FirstName, req.body.Password],
-         (e, r) => {
+            const comp = await bcrypt.compare(req.body.Password, user[0].Password);
+            if (comp) {
+               req.session.user = {
+                  firstname: user[0].FirstName,
+                  role: user[0].Role
+               };
+               req.session.isLogged = true;
+               console.log(req.session)
+               res.redirect('/admin');
 
-            let request = JSON.stringify(req.body);
-
-            for (let i = 0; i < results.length; i++) {
-               if (request === JSON.stringify(results[i])) {
-
-                  req.session.islogged = true;
-                  res.redirect('/admin');
-                  res.end();
-                  return;
-
-               } else {
-                  
-                  badPass = true;
-                  res.render("layout", { template: "login", wrong: badPass });
-                  return;
-               }
+            } else {
+               res.render("layout", { template: "login", error: "Mot de passe inccorect." });
             };
-         });
+         };
       });
    });
 });
-
 
 // NewUser ************************************************************************************************ 
 app.get('/register', (req, res) => {
    res.render("layout", { template: "register" });
 });
 
-app.post('/register', (req, res) => {
-   pool.query(`
+app.post('/register', async (req, res) => {
 
+   const hash = await hash(req.body.password, saltrounds);
+   pool.query(`
    INSERT INTO user (Id, Email, Password, Role, FirstName, LastName) 
    VALUES(NULL, ?, ?, 'user', ?, ?)`,
 
-      [req.body.mail, req.body.password, req.body.user, req.body.lastname],
-      (error, result) => {
-         if (error) {
+   [req.body.mail, hash, req.body.user, req.body.lastname],
+   (error, result) => {
+
+      if (error) {
             console.log(error);;
-         } else {
+      } else {
             res.redirect('/admin');
-         };
-      });
+      };
+   });
+});
+
+app.get('/logout', (req, res) => {
+   req.session.destroy();
+   console.log(req.session)
+   res.redirect("/");
 });
 
 

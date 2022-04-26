@@ -5,17 +5,17 @@
 
       <article>
          <h2><a href="/">
-               <%= headerData[0].Title %>
+            <%= headerData[0].Title %>
             </a></h2>
          <p><%= headerData[0].Contents %></p>
          <p>
             le : <%= headerData[0].CreationTimestamp.toLocaleDateString("fr") %>
          </p>
          <p>
-               <% if (comments.length !== 0) { %>
+            <% if (comments.length !== 0) { %>
             par : <%= comments[0].FirstName %>
                   <%= comments[0].LastName %>
-               <% } %>
+            <% } %>
          </p>
       </article>
 
@@ -44,17 +44,22 @@
 
    <section>
 
-      <form action="/details" method="post">
-         <label for="nickname">Alias :</label>
-         <input type="text" name="nickname">
-
-         <label for="contents">Votre message :</label>
-         <input type="text" name="contents">
-
-         <input class="hide" type="text" value="<%= idData %>" name="postId">
-
-         <input type="submit" value="Envoyer le com'!">
-      </form>
+      <% if(session.isLogged) { %> 
+         <form action="/details" method="post">
+            <label for="nickname">Alias :</label>
+            <input type="text" name="nickname">
+   
+            <label for="contents">Votre message :</label>
+            <input type="text" name="contents">
+   
+            <input class="hide" type="text" value="<%= idData %>" name="postId">
+   
+            <input type="submit" value="Envoyer le com'!">
+         </form>
+      <% } else { %> 
+         <h2>Vous devez être connecté pour pouvoir poster des commentaires.</h2>
+         <h3><a href="/login">Vous connecter ici.</a></h3>
+      <% } %> 
 
    </section>
    

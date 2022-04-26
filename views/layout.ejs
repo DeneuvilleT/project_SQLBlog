@@ -16,12 +16,18 @@
 
    <header class="blog-header">
       <h1 class="xl-txt"><a href="/"><i class="fa-solid fa-microphone"></i>&nbsp;Mon Blog</a></h1>
+
       <nav>
-         <ul>
-            <li><a href="/"><i class="fa-solid fa-house"></i>home</a></li>
-            <li><a href="/login"><i class="fa-solid fa-gear"></i>admin</a></li>
-         </ul>
+         <a href="/"><i class="fa-solid fa-house">&nbsp;&nbsp; home</i></a>
+
+         <a href=" <% if(session.isLogged) { %> /admin <% } else { %> /login <% } %> ">
+               <i class="fa-solid fa-gear"> admin</i></a>
+
+         <a href="<% if(session.isLogged) { %> /logout <% } else { %> /login <% } %>">
+               <i class="fa-solid fa-right-from-bracket">
+               <% if(session.isLogged) { %>Logout<% } else { %>Login<% } %></i></a>  
       </nav>
+      
    </header>
 
    <%- include(template) -%>

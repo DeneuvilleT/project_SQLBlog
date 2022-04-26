@@ -5,14 +5,14 @@
 
       <form action="/login" method="post">
          
-         <label for="FirstName">Identifiant :</label>
-         <input type="text" name="FirstName">
+         <label for="Email">Identifiant :</label>
+         <input type="email" name="Email">
 
          <label for="Password">Mot de passe :</label>
          <input type="password" name="Password">
 
-         <% if (wrong) { %>
-            <span class="remove">Identifiant(s) incorrect(s)</span>
+        <% if(error !== null) { %> 
+         <span class="remove"><%= error %></span>
          <% } %> 
 
          <a href="/register">Nouvel utilisateur ?</a>
